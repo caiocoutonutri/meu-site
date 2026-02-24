@@ -9,14 +9,16 @@
   <style>
     :root{
       --bg: #0b0f14;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
+      --card: rgba(14,20,28,.78);
+      --card2: rgba(16,22,31,.84);
+      --surface-soft: rgba(17,24,34,.60);
+      --surface-strong: rgba(17,24,34,.78);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
-      --line: rgba(255,255,255,.12);
+      --line: rgba(255,255,255,.08);
       --accent: #7dd3fc;
       --accent2:#a78bfa;
-      --shadow: 0 18px 70px rgba(0,0,0,.45);
+      --shadow: 0 12px 28px rgba(0,0,0,.30);
       --radius: 18px;
       --max: 1100px;
     }
@@ -26,11 +28,7 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
-      background:
-        radial-gradient(900px 500px at 20% -10%, rgba(125,211,252,.20), transparent 55%),
-        radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,.20), transparent 55%),
-        radial-gradient(700px 400px at 40% 110%, rgba(125,211,252,.10), transparent 55%),
-        var(--bg);
+      background: linear-gradient(180deg, #0b0f14 0%, #0a0e13 100%);
       line-height: 1.45;
     }
     a{ color: inherit; text-decoration: none; }
@@ -38,9 +36,10 @@
 
     .top{
       position: sticky; top: 0; z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,20,.55);
-      border-bottom: 1px solid var(--line);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: rgba(11,15,20,.92);
+      border-bottom: 1px solid rgba(255,255,255,.05);
     }
     .top .wrap{
       display:flex; align-items:center; justify-content:space-between;
@@ -144,7 +143,7 @@
       display:flex; gap:10px; align-items:flex-start;
       padding: 10px 12px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: var(--surface-soft);
       border-radius: 14px;
     }
     .check{
@@ -153,26 +152,6 @@
       background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,139,250,.95));
       display:grid; place-items:center;
       color:#081018; font-weight:900; font-size: 14px;
-    }
-
-    .marquee{
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      padding: 12px 0;
-      overflow: hidden;
-    }
-    .marquee-track{
-      display:flex; gap: 28px;
-      white-space: nowrap;
-      animation: scroll 18s linear infinite;
-      color: rgba(255,255,255,.78);
-      font-weight: 650;
-      letter-spacing: .3px;
-    }
-    @keyframes scroll{
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
     }
 
     .section-title{
@@ -207,7 +186,7 @@
       flex: 0 0 min(320px, 85%);
       scroll-snap-align: start;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: var(--surface-soft);
       border-radius: 16px;
       overflow:hidden;
     }
@@ -244,7 +223,7 @@
       padding: 18px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: var(--surface-soft);
       position: relative;
       overflow:hidden;
     }
@@ -274,14 +253,14 @@
       color: rgba(255,255,255,.82);
       padding: 10px 12px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.12);
+      background: var(--surface-strong);
       border-radius: 14px;
     }
 
     .faq{ display:grid; gap: 10px; }
     details{
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background: var(--surface-soft);
       border-radius: 16px;
       padding: 12px 14px;
     }
@@ -299,16 +278,52 @@
       align-items:center;
     }
     .links{ display:flex; gap: 10px; flex-wrap: wrap; }
-    .links a{ padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+    .links a{ padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: transparent; }
     .links a:hover{ background: rgba(255,255,255,.07); }
 
     .float{
       position: fixed;
-      right: 14px; bottom: 14px;
-      z-index: 20;
-      display:flex; gap: 10px; flex-direction: column;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 30;
     }
-    .float .btn{ box-shadow: 0 14px 45px rgba(0,0,0,.35); }
+    .float .whatsapp-fab{
+      width: 64px;
+      height: 64px;
+      padding: 0;
+      border-radius: 999px;
+      border: 6px solid rgba(255,255,255,.92);
+      background: #25D366;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 12px 26px rgba(0,0,0,.38),
+        0 0 0 1px rgba(255,255,255,.28);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+    }
+    .float .whatsapp-fab:hover{
+      transform: translateY(-2px) scale(1.03);
+      background: #1fb958;
+      box-shadow:
+        0 16px 30px rgba(0,0,0,.44),
+        0 0 0 1px rgba(255,255,255,.34);
+    }
+    .float .whatsapp-fab svg{
+      width: 29px;
+      height: 29px;
+      display: block;
+      fill: currentColor;
+      flex: 0 0 29px;
+    }
+    @media (max-width: 640px){
+      .float .whatsapp-fab{
+        width: 58px;
+        height: 58px;
+        border-width: 5px;
+      }
+    }
   </style>
 </head>
 
@@ -370,17 +385,6 @@
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="wrap">
-        <div class="marquee-track">
-          <span>COMEÇAR A TRANSFORMAÇÃO ✨</span><span>COMEÇAR A TRANSFORMAÇÃO ✨</span>
-          <span>COMEÇAR A TRANSFORMAÇÃO ✨</span><span>COMEÇAR A TRANSFORMAÇÃO ✨</span>
-          <span>COMEÇAR A TRANSFORMAÇÃO ✨</span><span>COMEÇAR A TRANSFORMAÇÃO ✨</span>
-          <span>COMEÇAR A TRANSFORMAÇÃO ✨</span><span>COMEÇAR A TRANSFORMAÇÃO ✨</span>
-        </div>
-      </div>
-    </div>
-
     <section id="resultados">
       <div class="wrap">
         <h2 class="section-title">Resultados reais de pessoas reais</h2>
@@ -439,7 +443,7 @@
             </div>
           </div>
 
-          <div class="offer" style="background: rgba(255,255,255,.08); border-color: rgba(125,211,252,.28);">
+          <div class="offer" style="background: var(--surface-strong); border-color: rgba(125,211,252,.28);">
             <div class="badge">Mais escolhido</div>
             <h3>Plano 2 (cole o nome real)</h3>
             <p>Descrição curta (cole a do original).</p>
@@ -520,11 +524,13 @@
   </main>
 
   <div class="float">
-    <a class="btn primary" href="#oferta">Ver planos</a>
-    <a class="btn"
+    <a class="btn whatsapp-fab"
        href="https://wa.me/5521967100559?text=Oi%20Caio!%20Quero%20come%C3%A7ar%20meu%20acompanhamento."
-       target="_blank" rel="noopener">
-      WhatsApp
+       target="_blank" rel="noopener"
+       aria-label="Falar no WhatsApp">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M19.11 17.24c-.28-.14-1.66-.82-1.92-.92-.26-.09-.45-.14-.64.14-.19.28-.74.92-.9 1.11-.17.19-.33.21-.61.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.41-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.17.19-.28.28-.47.09-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.28-1 1-.99 2.45.01 1.45 1.02 2.85 1.16 3.05.14.19 2.01 3.07 4.86 4.3.68.29 1.21.46 1.62.59.68.22 1.29.19 1.78.11.54-.08 1.66-.68 1.9-1.33.24-.65.24-1.2.17-1.33-.07-.12-.26-.19-.54-.33zM16.02 27.25h-.01c-1.83 0-3.63-.49-5.21-1.41l-.37-.22-3.89 1.02 1.04-3.78-.24-.39c-1-1.63-1.53-3.51-1.53-5.45.01-5.72 4.66-10.37 10.38-10.37 2.77 0 5.37 1.08 7.33 3.04 1.96 1.96 3.04 4.57 3.03 7.34-.01 5.72-4.66 10.37-10.53 10.37zm8.83-19.2A10.88 10.88 0 0016.02 3.4C9.86 3.4 4.85 8.4 4.84 14.57c0 2.07.55 4.1 1.6 5.88L4.76 26.6c-.13.48.3.91.78.78l6.32-1.66a11.1 11.1 0 005.14 1.27h.01c6.17 0 11.18-5 11.19-11.17 0-2.98-1.16-5.78-3.33-7.77z"/>
+      </svg>
     </a>
   </div>
 
